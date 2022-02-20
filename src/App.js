@@ -1,24 +1,47 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+import Form from './components/Form';
+import List from './components/List';
+import Footer from './components/Footer';
+import { uid } from 'uid';
 
 function App() {
+  const [status, setStatus] = useState("All")
+
+  const [toDo, setTodos] = useState([
+    {
+      content: 'Learn JavaScript',
+      id: uid(),
+      completed: false
+    },
+    {
+      content: 'Learn React',
+      id: uid(),
+      completed: false
+    },
+    {
+      content: 'Learn Vue.js',
+      id: uid(),
+      completed: false
+    },
+  ]);
+
+
+  useEffect(() => {
+  
+    console.log(toDo)
+  }, [toDo])
+  
+  
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="todoapp">
+      <Form toDo={toDo} setTodos={setTodos}/>
+      <List toDo={toDo} setTodos={setTodos}/>
+      <Footer toDo={toDo}/>
+    </section>
   );
 }
 
