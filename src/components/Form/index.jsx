@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import { uid } from 'uid';
 
-const initialFormValues = {content: '', id: uid(), visible: true}
+const initialFormValues = {content: '', id: uid(), completed: false}
 
 function Form({toDo, setTodos}) {
 	const [formTodo, setFormTodo] = useState(initialFormValues)
@@ -20,7 +20,7 @@ function Form({toDo, setTodos}) {
 		if(formTodo.content === ''){
 			return false;
 		}else{
-			
+			formTodo.id = uid()
 			setTodos([...toDo, formTodo])
 			console.log(formTodo.id)
 		}

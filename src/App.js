@@ -3,12 +3,9 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Form from './components/Form';
 import List from './components/List';
-import Footer from './components/Footer';
 import { uid } from 'uid';
 
-function App() {
-  const [status, setStatus] = useState("All")
-
+function App() {  
   const [toDo, setTodos] = useState([
     {
       content: 'Learn JavaScript',
@@ -27,20 +24,36 @@ function App() {
     },
   ]);
 
+  //filtrelenmiş todolar
+  const [filtered, setFiltered] = useState([])
+
+  
+  //tamamlanmamıs todoları listele ve gonder
+  const activeTodos = () => {
+    const filter = toDo.filter((item)=> !item.completed)
+    setFiltered(filter)
+  }
+  //tamamlanmıs todoları listele ve gonder
+  const completed = () => {
+    const filter = toDo.filter((item)=> item.completed)
+    setFiltered(filter)
+  }
+   // bütün todfoları listele
+  const all = () => {
+    setFiltered(toDo)
+   }
 
   useEffect(() => {
-  
-    console.log(toDo)
+    setFiltered(toDo)
   }, [toDo])
   
   
 
-
   return (
     <section className="todoapp">
       <Form toDo={toDo} setTodos={setTodos}/>
-      <List toDo={toDo} setTodos={setTodos}/>
-      <Footer toDo={toDo}/>
+      <List toDo={filtered} setTodos={setTodos} activeTodos={activeTodos} completed={completed} all={all}/>
+      
     </section>
   );
 }
